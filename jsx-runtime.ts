@@ -39,3 +39,18 @@ export const jsxEscape = (
 
 	return encode(string, 0, "");
 };
+
+export const jsxTemplate = (
+	template: readonly string[],
+	...substitions: readonly string[]
+): string => {
+	if (template.length === 1) {
+		return template.at(0) || "";
+	}
+
+	const template2: readonly string[] = [
+		template.at(0)! + substitions.at(0) + template.at(1),
+		...template.slice(2),
+	];
+	return jsxTemplate(template2, ...substitions.slice(1));
+};
